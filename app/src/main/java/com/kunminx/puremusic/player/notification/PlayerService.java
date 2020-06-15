@@ -32,14 +32,14 @@ import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.kunminx.architecture.data.usecase.UseCase;
-import com.kunminx.architecture.data.usecase.UseCaseHandler;
+import com.kunminx.architecture.domain.usecase.UseCase;
+import com.kunminx.architecture.domain.usecase.UseCaseHandler;
 import com.kunminx.architecture.utils.ImageUtils;
 import com.kunminx.puremusic.MainActivity;
 import com.kunminx.puremusic.R;
 import com.kunminx.puremusic.data.bean.TestAlbum;
 import com.kunminx.puremusic.data.config.Configs;
-import com.kunminx.puremusic.data.usecase.DownloadUseCase;
+import com.kunminx.puremusic.domain.usecase.DownloadUseCase;
 import com.kunminx.puremusic.player.PlayerManager;
 import com.kunminx.puremusic.player.helper.PlayerCallHelper;
 

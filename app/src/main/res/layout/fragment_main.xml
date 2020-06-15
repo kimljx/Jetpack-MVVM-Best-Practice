@@ -26,11 +26,11 @@
 
         <variable
             name="vm"
-            type="com.kunminx.puremusic.bridge.state.MainViewModel" />
+            type="com.kunminx.puremusic.ui.state.MainViewModel" />
 
         <variable
             name="adapter"
-            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+            type="androidx.recyclerview.widget.ListAdapter" />
 
     </data>
 
@@ -167,10 +167,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 adapter="@{adapter}"
+                notifyCurrentListChanged="@{vm.notifyCurrentListChanged}"
+                submitList="@{vm.list}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                refreshList="@{vm.list}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/adapter_play_item" />
 

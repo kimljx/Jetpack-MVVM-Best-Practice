@@ -24,12 +24,11 @@ import androidx.annotation.Nullable;
 
 import com.kunminx.puremusic.BR;
 import com.kunminx.puremusic.R;
-import com.kunminx.puremusic.bridge.request.MusicRequestViewModel;
-import com.kunminx.puremusic.bridge.state.MainViewModel;
 import com.kunminx.puremusic.player.PlayerManager;
 import com.kunminx.puremusic.ui.base.BaseFragment;
 import com.kunminx.puremusic.ui.base.DataBindingConfig;
 import com.kunminx.puremusic.ui.page.adapter.PlaylistAdapter;
+import com.kunminx.puremusic.ui.state.MainViewModel;
 
 /**
  * Create by KunMinX at 19/10/29
@@ -37,12 +36,10 @@ import com.kunminx.puremusic.ui.page.adapter.PlaylistAdapter;
 public class MainFragment extends BaseFragment {
 
     private MainViewModel mMainViewModel;
-    private MusicRequestViewModel mMusicRequestViewModel;
 
     @Override
     protected void initViewModel() {
         mMainViewModel = getFragmentViewModel(MainViewModel.class);
-        mMusicRequestViewModel = getFragmentViewModel(MusicRequestViewModel.class);
     }
 
     @Override
@@ -72,10 +69,10 @@ public class MainFragment extends BaseFragment {
             // 如此才能方便 追溯事件源，以及 避免 不可预期的 推送和错误。
             // 如果这样说还不理解的话，详见 https://xiaozhuanlan.com/topic/0168753249
 
-            mMainViewModel.list.setValue(PlayerManager.getInstance().getAlbum().getMusics());
+            mMainViewModel.notifyCurrentListChanged.setValue(true);
         });
 
-        mMusicRequestViewModel.getFreeMusicsLiveData().observe(getViewLifecycleOwner(), musicAlbum -> {
+        mMainViewModel.getFreeMusicsLiveData().observe(getViewLifecycleOwner(), musicAlbum -> {
             if (musicAlbum != null && musicAlbum.getMusics() != null) {
                 mMainViewModel.list.setValue(musicAlbum.getMusics());
 
@@ -93,7 +90,7 @@ public class MainFragment extends BaseFragment {
         });
 
         if (PlayerManager.getInstance().getAlbum() == null) {
-            mMusicRequestViewModel.requestFreeMusics();
+            mMainViewModel.requestFreeMusics();
         } else {
             mMainViewModel.list.setValue(PlayerManager.getInstance().getAlbum().getMusics());
         }

@@ -26,11 +26,10 @@ import androidx.annotation.Nullable;
 
 import com.kunminx.puremusic.BR;
 import com.kunminx.puremusic.R;
-import com.kunminx.puremusic.bridge.request.InfoRequestViewModel;
-import com.kunminx.puremusic.bridge.state.DrawerViewModel;
 import com.kunminx.puremusic.ui.base.BaseFragment;
 import com.kunminx.puremusic.ui.base.DataBindingConfig;
 import com.kunminx.puremusic.ui.page.adapter.DrawerAdapter;
+import com.kunminx.puremusic.ui.state.DrawerViewModel;
 
 /**
  * Create by KunMinX at 19/10/29
@@ -38,11 +37,9 @@ import com.kunminx.puremusic.ui.page.adapter.DrawerAdapter;
 public class DrawerFragment extends BaseFragment {
 
     private DrawerViewModel mDrawerViewModel;
-    private InfoRequestViewModel mInfoRequestViewModel;
 
     @Override
     protected void initViewModel() {
-        mInfoRequestViewModel = getFragmentViewModel(InfoRequestViewModel.class);
         mDrawerViewModel = getFragmentViewModel(DrawerViewModel.class);
     }
 
@@ -66,20 +63,20 @@ public class DrawerFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mInfoRequestViewModel.getLibraryLiveData().observe(getViewLifecycleOwner(), libraryInfos -> {
+        mDrawerViewModel.getLibraryLiveData().observe(getViewLifecycleOwner(), libraryInfos -> {
             if (mAnimationLoaded && libraryInfos != null) {
                 mDrawerViewModel.list.setValue(libraryInfos);
             }
         });
 
-        mInfoRequestViewModel.requestLibraryInfo();
+        mDrawerViewModel.requestLibraryInfo();
     }
 
     @Override
     public void loadInitData() {
         super.loadInitData();
-        if (mInfoRequestViewModel.getLibraryLiveData().getValue() != null) {
-            mDrawerViewModel.list.setValue(mInfoRequestViewModel.getLibraryLiveData().getValue());
+        if (mDrawerViewModel.getLibraryLiveData().getValue() != null) {
+            mDrawerViewModel.list.setValue(mDrawerViewModel.getLibraryLiveData().getValue());
         }
     }
 

@@ -40,12 +40,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.kunminx.architecture.data.manager.NetState;
-import com.kunminx.architecture.data.manager.NetworkStateManager;
+import com.kunminx.architecture.domain.manager.NetState;
+import com.kunminx.architecture.domain.manager.NetworkStateManager;
 import com.kunminx.puremusic.App;
 import com.kunminx.puremusic.BR;
 import com.kunminx.puremusic.R;
-import com.kunminx.puremusic.bridge.callback.SharedViewModel;
+import com.kunminx.puremusic.ui.callback.SharedViewModel;
 
 
 /**
@@ -76,10 +76,15 @@ public abstract class BaseFragment extends Fragment {
         mSharedViewModel = ((App) mActivity.getApplicationContext()).getAppViewModelProvider(mActivity).get(SharedViewModel.class);
 
         initViewModel();
+    }
 
-        //TODO 注意 liveData 的 lambda 回调中不可为空，不然会出现 Cannot add the same observer with different lifecycles 的现象，
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //TODO 注意 liveData 的 lambda 回调中不可空实现，不然会出现 Cannot add the same observer with different lifecycles 的现象，
         // 详见：https://stackoverflow.com/questions/47025233/android-lifecycle-library-cannot-add-the-same-observer-with-different-lifecycle
-        NetworkStateManager.getInstance().networkStateCallback.observe(this, this::onNetworkStateChanged);
+        NetworkStateManager.getInstance().networkStateCallback.observe(getViewLifecycleOwner(), this::onNetworkStateChanged);
     }
 
     @SuppressWarnings("EmptyMethod")

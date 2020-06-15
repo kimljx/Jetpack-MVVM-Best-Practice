@@ -21,7 +21,7 @@
 
         <variable
             name="vm"
-            type="com.kunminx.puremusic.bridge.state.DrawerViewModel" />
+            type="com.kunminx.puremusic.ui.state.DrawerViewModel" />
 
         <variable
             name="click"
@@ -29,7 +29,7 @@
 
         <variable
             name="adapter"
-            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+            type="androidx.recyclerview.widget.ListAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +80,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             adapter="@{adapter}"
-            refreshList="@{vm.list}"
+            submitList="@{vm.list}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"

@@ -33,14 +33,14 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.kunminx.architecture.data.manager.NetworkStateManager;
+import com.kunminx.architecture.domain.manager.NetworkStateManager;
 import com.kunminx.architecture.utils.AdaptScreenUtils;
 import com.kunminx.architecture.utils.BarUtils;
 import com.kunminx.architecture.utils.ScreenUtils;
 import com.kunminx.puremusic.App;
 import com.kunminx.puremusic.BR;
 import com.kunminx.puremusic.R;
-import com.kunminx.puremusic.bridge.callback.SharedViewModel;
+import com.kunminx.puremusic.ui.callback.SharedViewModel;
 
 /**
  * Create by KunMinX at 19/8/1
